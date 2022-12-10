@@ -25,6 +25,7 @@ resource "aws_security_group" "ec2_sg" {
 
 
   ingress {
+    description      = "ssh"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -32,6 +33,7 @@ resource "aws_security_group" "ec2_sg" {
   }
 
   ingress {
+    description = "Node Exporter"
     from_port   = 9100
     to_port     = 9100
     protocol    = "tcp"
@@ -39,6 +41,7 @@ resource "aws_security_group" "ec2_sg" {
   }
 
   ingress {
+    description      = "jenkins"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
@@ -46,6 +49,7 @@ resource "aws_security_group" "ec2_sg" {
   }
 
   egress {
+    description = "allow all"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -71,10 +75,10 @@ resource "aws_instance" "web_server" {
 
   # best practices as per checkov scanner
 
-  # monitoring = true
-  # ebs_optimized = true
-  # root_block_device {
-  # encrypted     = true
-  # }
+  monitoring = true
+  ebs_optimized = true
+  root_block_device {
+  encrypted     = true
+  }
 
 }
